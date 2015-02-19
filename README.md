@@ -1,7 +1,7 @@
 XEOS / toolchain
 ================
 
-[![Build Status](https://img.shields.io/travis/macmade/XEOS.svg?branch=master&style=flat)](https://travis-ci.org/macmade/XEOS)
+[![Build Status](https://img.shields.io/travis/macmade/XEOS-toolchain.svg?branch=master&style=flat)](https://travis-ci.org/macmade/XEOS-toolchain)
 [![Issues](http://img.shields.io/github/issues/macmade/XEOS-toolchain.svg?style=flat)](https://github.com/macmade/XEOS-toolchain/issues)
 ![Status](https://img.shields.io/badge/status-active-brightgreen.svg?style=flat)
 ![License](https://img.shields.io/badge/license-xeos-brightgreen.svg?style=flat)
