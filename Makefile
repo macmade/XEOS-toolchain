@@ -69,23 +69,23 @@ FILES   :=
 all:
 	
 	$(call PRINT,$(COLOR_CYAN)Building yasm$(COLOR_NONE))
-	@cd yasm && $(MAKE)
+	@cd software/yasm && $(MAKE)
 	$(call PRINT,$(COLOR_CYAN)Building gmp$(COLOR_NONE))
-	@cd gmp && $(MAKE)
+	@cd software/gmp && $(MAKE)
 	$(call PRINT,$(COLOR_CYAN)Building mpfr$(COLOR_NONE))
-	@cd mpfr && $(MAKE)
+	@cd software/mpfr && $(MAKE)
 	$(call PRINT,$(COLOR_CYAN)Building binutils$(COLOR_NONE))
-	@cd binutils && $(MAKE)
+	@cd software/binutils && $(MAKE)
 	$(call PRINT,$(COLOR_CYAN)Building cmake$(COLOR_NONE))
-	@cd cmake && $(MAKE)
+	@cd software/cmake && $(MAKE)
 	$(call PRINT,$(COLOR_CYAN)Building llvm$(COLOR_NONE))
-	@if [ -z "$(TRAVIS)" ]; then cd llvm && $(MAKE); fi
+	@if [ -z "$(TRAVIS)" ]; then cd software/llvm && $(MAKE); fi
 	
 clean:
 	
-	@cd yasm && $(MAKE) clean
-	@cd gmp && $(MAKE) clean
-	@cd mpfr && $(MAKE) clean
-	@cd binutils && $(MAKE) clean
-	@cd cmake && $(MAKE) clean
-	@cd llvm && $(MAKE) clean
+	@cd software/yasm && $(MAKE) clean
+	@cd software/gmp && $(MAKE) clean
+	@cd software/mpfr && $(MAKE) clean
+	@cd software/binutils && $(MAKE) clean
+	@cd software/cmake && $(MAKE) clean
+	@cd software/llvm && $(MAKE) clean

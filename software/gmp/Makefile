@@ -59,39 +59,33 @@
 
 # $Id$
 
-include ../make/Config.mk
-include ../make/Targets.mk
+include ../../make/Config.mk
+include ../../make/Targets.mk
 
-PROMPT  := XEOS TOOLCHAIN LLVM
+PROMPT  := XEOS TOOLCHAIN GMP
 DEPS    := 
 FILES   := 
 
+VERSION := 6.0.0
+
 all:
 	
-	$(call PRINT,"Checking out llvm")
-	@if [ ! -d source/llvm ]; then svn co http://llvm.org/svn/llvm-project/llvm/trunk source/llvm; fi
-	@cd source/llvm && svn update
+	$(call PRINT,"Unpacking gmp ($(VERSION))")
+	@if [ ! -d source/gmp-$(VERSION) ]; then tar -xzf distrib/gmp-$(VERSION).tar.bz2 -C source; fi
 	
-	$(call PRINT,"Checking out clang")
-	@if [ ! -d source/llvm/tools/clang ]; then svn co http://llvm.org/svn/llvm-project/cfe/trunk source/llvm/tools/clang; fi
-	@cd source/llvm/tools/clang && svn update
+	$(call PRINT,"Configuring gmp ($(VERSION))")
+	@cd build && exec ../source/gmp-$(VERSION)/configure --prefix=/usr/local/xeos-toolchain/gmp
 	
-	$(call PRINT,"Checking out compiler-rt")
-	@if [ ! -d source/llvm/projects/compiler-rt ]; then svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk source/llvm/projects/compiler-rt; fi
-	@cd source/llvm/projects/compiler-rt && svn update
-	
-	$(call PRINT,"Configuring llvm")
-	@cd build && exec ../source/llvm/configure --prefix=/usr/local/xeos-toolchain/llvm --disable-optimized --enable-optimized --enable-targets=x86,x86_64
-	
-	$(call PRINT,"Building llvm")
+	$(call PRINT,"Building gmp ($(VERSION))")
 	@cd build && $(MAKE)
 	
-	$(call PRINT,"Installing llvm")
+	$(call PRINT,"Installing gmp ($(VERSION))")
 	@cd build && sudo $(MAKE) install
 	
 clean:
 	
 	$(call PRINT,Cleaning all build files)
 	@rm -rf build/*
+	@rm -rf build/.libs
 	$(call PRINT,Cleaning all temporary files)
 	@rm -rf source/*

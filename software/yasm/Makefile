@@ -59,8 +59,8 @@
 
 # $Id$
 
-include ../make/Config.mk
-include ../make/Targets.mk
+include ../../make/Config.mk
+include ../../make/Targets.mk
 
 PROMPT  := XEOS TOOLCHAIN YASM
 DEPS    := 

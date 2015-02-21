@@ -59,32 +59,28 @@
 
 # $Id$
 
-include ../make/Config.mk
-include ../make/Targets.mk
+include ../../make/Config.mk
+include ../../make/Targets.mk
 
-PROMPT  := XEOS TOOLCHAIN BINUTILS
+PROMPT  := XEOS TOOLCHAIN CMAKE
 DEPS    := 
 FILES   := 
 
-VERSION := 2.25
+VERSION := 3.2.0-rc1
 
-all: i386-elf-freebsd x86_64-elf-freebsd i386-efi-pe x86_64-efi-pe
+all:
 	
-	@:
+	$(call PRINT,"Unpacking cmake ($(VERSION))")
+	@if [ ! -d source/cmake-$(VERSION) ]; then tar -xzf distrib/cmake-$(VERSION).tar.gz -C source; fi
 	
-%:
+	$(call PRINT,"Configuring cmake ($(VERSION))")
+	@cd build && exec ../source/cmake-$(VERSION)/configure --prefix=/usr/local/xeos-toolchain/cmake
 	
-	$(call PRINT,"Unpacking binutils ($(VERSION))")
-	@if [ ! -d source/binutils-$(VERSION) ]; then tar -xzf distrib/binutils-$(VERSION).tar.bz2 -C source; fi
+	$(call PRINT,"Building cmake ($(VERSION))")
+	@cd build && $(MAKE)
 	
-	$(call PRINT,"Configuring binutils ($(VERSION) / $@)")
-	@mkdir -p build/$@ && cd build/$@ && exec ../../source/binutils-$(VERSION)/configure --prefix=/usr/local/xeos-toolchain/binutils --target=$@ --disable-nls --disable-werror
-	
-	$(call PRINT,"Building binutils ($(VERSION) / $@)")
-	@cd build/$@ && $(MAKE)
-	
-	$(call PRINT,"Installing binutils ($(VERSION) / $@)")
-	@cd build/$@ && sudo $(MAKE) install
+	$(call PRINT,"Installing cmake ($(VERSION))")
+	@cd build && sudo $(MAKE) install
 	
 clean:
 	
