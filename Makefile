@@ -65,30 +65,17 @@ include make/Targets.mk
 PROMPT  := XEOS TOOLCHAIN
 DEPS    := 
 FILES   := 
+TARGETS := make yasm gmp mpfr binutils cmake
+CI      := $(shell if [ -z $$TRAVIS ]; then echo false; fi)
 
-all:
+ifeq ($(CI),false)
+TARGETS += llvm
+endif
+
+all: build-sub
 	
-	$(call PRINT,$(COLOR_CYAN)Building make$(COLOR_NONE))
-	@cd software/make && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building yasm$(COLOR_NONE))
-	@cd software/yasm && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building gmp$(COLOR_NONE))
-	@cd software/gmp && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building mpfr$(COLOR_NONE))
-	@cd software/mpfr && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building binutils$(COLOR_NONE))
-	@cd software/binutils && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building cmake$(COLOR_NONE))
-	@cd software/cmake && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building llvm$(COLOR_NONE))
-	@if [ -z "$(TRAVIS)" ]; then cd software/llvm && $(MAKE); fi
+	@:
+
+clean: clean-sub
 	
-clean:
-	
-	@cd software/make && $(MAKE) clean
-	@cd software/yasm && $(MAKE) clean
-	@cd software/gmp && $(MAKE) clean
-	@cd software/mpfr && $(MAKE) clean
-	@cd software/binutils && $(MAKE) clean
-	@cd software/cmake && $(MAKE) clean
-	@cd software/llvm && $(MAKE) clean
+	@:
