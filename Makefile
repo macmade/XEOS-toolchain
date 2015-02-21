@@ -81,7 +81,7 @@ all:
 	$(call PRINT,$(COLOR_CYAN)Building cmake$(COLOR_NONE))
 	@cd software/cmake && $(MAKE)
 	$(call PRINT,$(COLOR_CYAN)Building llvm$(COLOR_NONE))
-	cd software/llvm && $(MAKE)
+	@if [ -z "$(TRAVIS)" ]; then cd software/llvm && $(MAKE); fi
 	
 clean:
 	
