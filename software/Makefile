@@ -59,15 +59,20 @@
 
 # $Id$
 
-include make/Config.mk
-include make/Targets.mk
+include ../make/Config.mk
+include ../make/Targets.mk
 
 .NOTPARALLEL:
 
 PROMPT  := XEOS TOOLCHAIN
 DEPS    := 
 FILES   := 
-TARGETS := software
+TARGETS := make yasm gmp mpfr binutils cmake
+CI      := $(shell if [ -z $$TRAVIS ]; then echo false; fi)
+
+ifeq ($(CI),false)
+TARGETS += llvm
+endif
 
 all: build-sub
 	
