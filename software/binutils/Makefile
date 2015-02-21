@@ -62,6 +62,8 @@
 include ../../make/Config.mk
 include ../../make/Targets.mk
 
+.NOTPARALLEL:
+
 PROMPT  := XEOS TOOLCHAIN BINUTILS
 DEPS    := 
 FILES   := 
