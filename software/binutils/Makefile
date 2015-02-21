@@ -77,7 +77,7 @@ all: i386-elf-freebsd x86_64-elf-freebsd i386-efi-pe x86_64-efi-pe
 %:
 	
 	$(call PRINT,"Unpacking binutils ($(VERSION))")
-	@if [ ! -d source/binutils-$(VERSION) ]; then tar -xzf distrib/binutils-$(VERSION).tar.bz2 -C source; fi
+	@if [ ! -d source/binutils-$(VERSION) ]; then tar -xjf distrib/binutils-$(VERSION).tar.bz2 -C source; fi
 	
 	$(call PRINT,"Configuring binutils ($(VERSION) / $@)")
 	@mkdir -p build/$@ && cd build/$@ && exec ../../source/binutils-$(VERSION)/configure --prefix=/usr/local/xeos-toolchain/binutils --target=$@ --disable-nls --disable-werror

@@ -73,7 +73,7 @@ VERSION := 3.1.2
 all:
 	
 	$(call PRINT,"Unpacking mpfr ($(VERSION))")
-	@if [ ! -d source/mpfr-$(VERSION) ]; then tar -xzf distrib/mpfr-$(VERSION).tar.bz2 -C source; fi
+	@if [ ! -d source/mpfr-$(VERSION) ]; then tar -xjf distrib/mpfr-$(VERSION).tar.bz2 -C source; fi
 	
 	$(call PRINT,"Configuring mpfr ($(VERSION))")
 	@cd build && exec ../source/mpfr-$(VERSION)/configure --prefix=/usr/local/xeos-toolchain/mpfr --with-gmp=/usr/local/xeos-toolchain/gmp

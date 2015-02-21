@@ -73,7 +73,7 @@ VERSION := 4.1
 all:
 	
 	$(call PRINT,"Unpacking make ($(VERSION))")
-	@if [ ! -d source/make-$(VERSION) ]; then tar -xzf distrib/make-$(VERSION).tar.bz2 -C source; fi
+	@if [ ! -d source/make-$(VERSION) ]; then tar -xjf distrib/make-$(VERSION).tar.bz2 -C source; fi
 	
 	$(call PRINT,"Configuring make ($(VERSION))")
 	@cd build && exec ../source/make-$(VERSION)/configure --prefix=/usr/local/xeos-toolchain/make

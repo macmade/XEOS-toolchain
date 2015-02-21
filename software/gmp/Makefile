@@ -73,7 +73,7 @@ VERSION := 6.0.0
 all:
 	
 	$(call PRINT,"Unpacking gmp ($(VERSION))")
-	@if [ ! -d source/gmp-$(VERSION) ]; then tar -xzf distrib/gmp-$(VERSION).tar.bz2 -C source; fi
+	@if [ ! -d source/gmp-$(VERSION) ]; then tar -xjf distrib/gmp-$(VERSION).tar.bz2 -C source; fi
 	
 	$(call PRINT,"Configuring gmp ($(VERSION))")
 	@cd build && exec ../source/gmp-$(VERSION)/configure --prefix=/usr/local/xeos-toolchain/gmp
