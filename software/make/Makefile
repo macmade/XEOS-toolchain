@@ -59,36 +59,32 @@
 
 # $Id$
 
-include make/Config.mk
-include make/Targets.mk
+include ../../make/Config.mk
+include ../../make/Targets.mk
 
-PROMPT  := XEOS TOOLCHAIN
+PROMPT  := XEOS TOOLCHAIN MAKE
 DEPS    := 
 FILES   := 
 
+VERSION := 4.1
+
 all:
 	
-	$(call PRINT,$(COLOR_CYAN)Building make$(COLOR_NONE))
-	@cd software/make && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building yasm$(COLOR_NONE))
-	@cd software/yasm && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building gmp$(COLOR_NONE))
-	@cd software/gmp && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building mpfr$(COLOR_NONE))
-	@cd software/mpfr && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building binutils$(COLOR_NONE))
-	@cd software/binutils && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building cmake$(COLOR_NONE))
-	@cd software/cmake && $(MAKE)
-	$(call PRINT,$(COLOR_CYAN)Building llvm$(COLOR_NONE))
-	@if [ -z "$(TRAVIS)" ]; then cd software/llvm && $(MAKE); fi
+	$(call PRINT,"Unpacking make ($(VERSION))")
+	@if [ ! -d source/make-$(VERSION) ]; then tar -xzf distrib/make-$(VERSION).tar.bz2 -C source; fi
+	
+	$(call PRINT,"Configuring make ($(VERSION))")
+	@cd build && exec ../source/make-$(VERSION)/configure --prefix=/usr/local/xeos-toolchain/make
+	
+	$(call PRINT,"Building make ($(VERSION))")
+	@cd build && $(MAKE)
+	
+	$(call PRINT,"Installing make ($(VERSION))")
+	@cd build && sudo $(MAKE) install
 	
 clean:
 	
-	@cd software/make && $(MAKE) clean
-	@cd software/yasm && $(MAKE) clean
-	@cd software/gmp && $(MAKE) clean
-	@cd software/mpfr && $(MAKE) clean
-	@cd software/binutils && $(MAKE) clean
-	@cd software/cmake && $(MAKE) clean
-	@cd software/llvm && $(MAKE) clean
+	$(call PRINT,Cleaning all build files)
+	@rm -rf build/*
+	$(call PRINT,Cleaning all temporary files)
+	@rm -rf source/*
