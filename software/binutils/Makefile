@@ -92,5 +92,8 @@ clean:
 	
 	$(call PRINT,Cleaning all build files)
 	@rm -rf build/*
+
+distclean: clean
+	
 	$(call PRINT,Cleaning all temporary files)
 	@rm -rf source/*
