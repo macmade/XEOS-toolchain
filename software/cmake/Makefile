@@ -71,7 +71,7 @@ PROMPT  := XEOS TOOLCHAIN CMAKE
 DEPS    := 
 FILES   := 
 
-VERSION := 3.2.0-rc1
+VERSION := 3.7.1
 
 all:
 	
