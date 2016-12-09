@@ -86,7 +86,7 @@ all:
 	@cd source/llvm/projects/compiler-rt && svn update
 	
 	$(call PRINT,"Configuring llvm")
-	@cd build && exec ../source/llvm/configure --prefix=/usr/local/xeos-toolchain/llvm --disable-optimized --enable-optimized --enable-targets=x86,x86_64
+	@cd build && /usr/local/xeos-toolchain/cmake/bin/cmake ../source/llvm/ -DCMAKE_INSTALL_PREFIX=/usr/local/xeos-toolchain/llvm -DLLVM_TARGETS_TO_BUILD=X86
 	
 	$(call PRINT,"Building llvm")
 	@cd build && $(MAKE)
