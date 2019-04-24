@@ -74,19 +74,11 @@ FILES   :=
 all:
 	
 	$(call PRINT,"Checking out llvm")
-	@if [ ! -d source/llvm ]; then svn co http://llvm.org/svn/llvm-project/llvm/trunk source/llvm; fi
-	@cd source/llvm && svn update
-	
-	$(call PRINT,"Checking out clang")
-	@if [ ! -d source/llvm/tools/clang ]; then svn co http://llvm.org/svn/llvm-project/cfe/trunk source/llvm/tools/clang; fi
-	@cd source/llvm/tools/clang && svn update
-	
-	$(call PRINT,"Checking out compiler-rt")
-	@if [ ! -d source/llvm/projects/compiler-rt ]; then svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk source/llvm/projects/compiler-rt; fi
-	@cd source/llvm/projects/compiler-rt && svn update
+	@if [ ! -d source/llvm ]; then git clone https://github.com/llvm/llvm-project.git source/llvm; fi
+	@cd source/llvm && git pull && git submodule update --init --recursive
 	
 	$(call PRINT,"Configuring llvm")
-	@cd build && /usr/local/xeos-toolchain/cmake/bin/cmake ../source/llvm/ -DCMAKE_INSTALL_PREFIX=/usr/local/xeos-toolchain/llvm -DLLVM_TARGETS_TO_BUILD=X86
+	@cd build && /usr/local/xeos-toolchain/cmake/bin/cmake ../source/llvm/llvm -DCMAKE_INSTALL_PREFIX=/usr/local/xeos-toolchain/llvm -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles"
 	
 	$(call PRINT,"Building llvm")
 	@cd build && $(MAKE)
